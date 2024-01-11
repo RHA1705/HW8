@@ -19,7 +19,7 @@ def get_birthdays_per_week(users):
 
         weekday_birth = birthday.strftime('%A')
 
-        if not (birthday > today and birthday < today + timedelta(days=7)):
+        if not today < birthday < today + timedelta(days=7):
             continue
 
         for day in range(today.weekday(), date_sunday.weekday() + 1):
@@ -27,7 +27,7 @@ def get_birthdays_per_week(users):
             days.append(day)
 
             if weekday_birth == day:
-                if day == 'Saturday' or day == 'Sunday':
+                if day in ['Saturday', 'Sunday']:
                     if 'Monday' in week_birthdays:
                         week_birthdays.get('Monday').append(user_name)
                     else:
@@ -40,7 +40,6 @@ def get_birthdays_per_week(users):
                     week_birthdays.get(day).append(user_name)
 
     return week_birthdays
-
 
 if __name__ == "__main__":
     example_users = [
